@@ -6,31 +6,30 @@ import { NetworkIdentifier } from "bdsx/bds/networkidentifier";
 export function getScoreByActor(
     target: Actor,
     objective: string
-): undefined | number {
-    let level = serverInstance.minecraft.getLevel();
-    let score = level.getScoreboard();
-    let obj = score.getObjective(objective)!;
-    if (!obj) return undefined;
+): null | number {
+    const level = serverInstance.minecraft.getLevel();
+    const score = level.getScoreboard();
+    const obj = score.getObjective(objective);
+    if (!obj) return null;
 
-    let id = score.getPlayerScoreboardId(target as Player);
+    const id = score.getPlayerScoreboardId(target as Player);
     return obj.getPlayerScore(id).value;
 }
 
 export function getScoreByNetworkId(
     targetNetworkID: NetworkIdentifier,
     objective: string
-): undefined | number {
+): null | number {
     const target = targetNetworkID.getActor();
 
-    let level = serverInstance.minecraft.getLevel();
-    let score = level.getScoreboard();
-    let obj = score.getObjective(objective)!;
-    if (!obj) return undefined; //
+    const level = serverInstance.minecraft.getLevel();
+    const score = level.getScoreboard();
+    const obj = score.getObjective(objective);
+    if (!obj) return null; //
 
-    let id = score.getPlayerScoreboardId(target as Player);
+    const id = score.getPlayerScoreboardId(target as Player);
     return obj.getPlayerScore(id).value;
 }
-
 /*
 const level = serverInstance.minecraft.getLevel()!;
 const players = level.players!;
