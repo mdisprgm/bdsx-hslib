@@ -22,6 +22,7 @@ const setSneaking = procHacker.hooking(
     const old = oldSneaks.get(ni);
     if (old === undefined) return;
     if (old !== sneaking) {
+        onSneakingToggled.fire(self, sneaking);
         oldSneaks.set(ni, sneaking);
         console.log("Toggled:", self.getName());
     }
