@@ -4,7 +4,7 @@ import { Actor } from "bdsx/bds/actor";
 import { NetworkIdentifier } from "bdsx/bds/networkidentifier";
 import { Event } from "bdsx/eventtarget";
 
-const onSneakingToggled = new Event<
+const onSneakingSwitched = new Event<
     (actor: Actor, sneaking: boolean) => void
 >();
 
@@ -22,8 +22,7 @@ const setSneaking = procHacker.hooking(
     const old = oldSneaks.get(ni);
     if (old === undefined) return;
     if (old !== sneaking) {
-        onSneakingToggled.fire(self, sneaking);
+        onSneakingSwitched.fire(self, sneaking);
         oldSneaks.set(ni, sneaking);
-        console.log("Toggled:", self.getName());
     }
 });
