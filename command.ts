@@ -51,6 +51,6 @@ export namespace MCCmd {
     }
 
     export function Log(str: string, prefix = "Feedback") {
-        console.log(`[${prefix}]`, str.replace(/§(\w{1})|(\d{1})/g, ""));
+        console.log(`[${prefix}]`, str.replace(/§\w{1}/g, ""));
     }
 }
