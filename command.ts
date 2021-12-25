@@ -1,6 +1,7 @@
 import { Actor } from "bdsx/bds/actor";
+import { CommandPermissionLevel } from "bdsx/bds/command";
 import { CommandOrigin } from "bdsx/bds/commandorigin";
-import { Player } from "bdsx/bds/player";
+import { Player, PlayerPermission } from "bdsx/bds/player";
 import { bedrockServer } from "bdsx/launcher";
 import { red } from "colors";
 export namespace MCCmd {
@@ -52,5 +53,24 @@ export namespace MCCmd {
 
     export function Log(str: string, prefix = "Feedback") {
         console.log(`[${prefix}]`, str.replace(/§\w{1}/g, ""));
+    }
+
+    /**
+     *  `연산자`(왕관) 권한을 가졌는가
+     * @param player 대상
+     * @returns 연산자인지 반환
+     */
+     export function isOperator(player: Player) {
+        return player.getPermissionLevel() === PlayerPermission.OPERATOR;
+    }
+
+    const HigHCmdPermissions = [CommandPermissionLevel.Operator, CommandPermissionLevel.Admin, CommandPermissionLevel.Host];
+    /**
+     * 연산자 명령어 권한을 가진 `사용자 지정`일 때도 포함인듯?
+     * @param player 대상
+     * @returns 연산자 명령어 사용 권한이 있는지 반환
+     */
+    export function hasOperatorPermission(actor: Actor) {
+        return HigHCmdPermissions.includes(actor.getCommandPermissionLevel());
     }
 }
