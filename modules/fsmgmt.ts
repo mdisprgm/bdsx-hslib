@@ -1,7 +1,7 @@
 import fs = require("fs");
 import path = require("path");
 
-export namespace FileUtil {
+export namespace fsmgmt {
     export function mkdirSync(path: string) {
         try {
             fs.mkdirSync(path);
