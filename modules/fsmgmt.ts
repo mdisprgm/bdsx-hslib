@@ -1,6 +1,10 @@
 import fs = require("fs");
 import path = require("path");
 
+/**
+ * Inspired by `fsutil` from bdsx.
+ * In fact, just turned to Sync
+ */
 export namespace fsmgmt {
     export function mkdirSync(path: string) {
         try {
