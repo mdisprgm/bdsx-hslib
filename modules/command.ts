@@ -64,13 +64,13 @@ export namespace MCCmd {
         return player.getPermissionLevel() === PlayerPermission.OPERATOR;
     }
 
-    const HigHCmdPermissions = [CommandPermissionLevel.Operator, CommandPermissionLevel.Admin, CommandPermissionLevel.Host];
+    const HighCmdPermissions = [CommandPermissionLevel.Operator, CommandPermissionLevel.Admin, CommandPermissionLevel.Host];
     /**
      * 연산자 명령어 권한을 가진 `사용자 지정`일 때도 포함인듯?
      * @param player 대상
      * @returns 연산자 명령어 사용 권한이 있는지 반환
      */
     export function hasOperatorPermission(actor: Actor) {
-        return HigHCmdPermissions.includes(actor.getCommandPermissionLevel());
+        return HighCmdPermissions.includes(actor.getCommandPermissionLevel());
     }
 }
