@@ -5,9 +5,7 @@ export namespace fsmgmt {
     export function mkdirSync(path: string) {
         try {
             fs.mkdirSync(path);
-        } catch (err) {
-            throw err;
-        }
+        } catch (err) {}
     }
     export function mkdirRecursiveSync(dirpath: string, dirhas?: Set<string>) {
         if (dirhas != null && dirhas.has(dirpath)) return;
