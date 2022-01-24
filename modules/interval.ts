@@ -8,11 +8,14 @@ export class IntervalUtil {
             this.entries[i].clear();
         }
     }
+    static New(func: () => void, delayMS: number): IntervalUtil {
+        return new this(func, delayMS);
+    }
 
     private readonly timeout: NodeJS.Timeout;
     private set: boolean = false;
 
-    public constructor(func: () => void, delayMS: number) {
+    protected constructor(func: () => void, delayMS: number) {
         this.set = true;
         this.timeout = setInterval(func, delayMS);
         IntervalUtil.entries.push(this);
