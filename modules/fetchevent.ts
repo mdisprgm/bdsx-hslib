@@ -1,5 +1,6 @@
 import { Actor } from "bdsx/bds/actor";
 import {
+    ActorCommandSelector,
     ActorWildcardCommandSelector,
     CommandPermissionLevel,
 } from "bdsx/bds/command";
@@ -15,6 +16,12 @@ export class EntitiesDetectedEvent {
         {};
     static New(identifier: string, selectors: string) {
         this.Entries[identifier] = selectors;
+    }
+    /*
+     * Example: fetch("findingAdmins", "@a[tag=admin]")
+     */
+    static fetch(identifier: string, selector: string) {
+        MCCmd.run(`${FETCH_COMMAND} ${identifier} ${selector}`);
     }
     constructor(public identifier: string, public entities: Actor[]) {}
 }
