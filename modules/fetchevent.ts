@@ -1,9 +1,5 @@
 import { Actor } from "bdsx/bds/actor";
-import {
-    ActorCommandSelector,
-    ActorWildcardCommandSelector,
-    CommandPermissionLevel,
-} from "bdsx/bds/command";
+import { ActorCommandSelector, CommandPermissionLevel } from "bdsx/bds/command";
 import { command } from "bdsx/command";
 import { Event } from "bdsx/eventtarget";
 import { CxxString } from "bdsx/nativetype";
@@ -46,6 +42,6 @@ command
         },
         {
             identifier: CxxString,
-            entities: ActorWildcardCommandSelector,
+            entities: ActorCommandSelector,
         }
     );
