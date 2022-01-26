@@ -14,7 +14,7 @@ export const FETCH_COMMAND = "fetchentities";
 export class EntitiesDetectedEvent {
     static Entries: Record</**identifier */ string, /**selectors */ string> =
         {};
-    static New(identifier: string, selectors: string) {
+    static register(identifier: string, selectors: string) {
         this.Entries[identifier] = selectors;
     }
     /*
