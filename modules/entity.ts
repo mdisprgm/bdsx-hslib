@@ -1,21 +1,26 @@
 import { Actor, ActorDefinitionIdentifier, ActorType } from "bdsx/bds/actor";
 import { BlockSource } from "bdsx/bds/block";
 import { Vec3 } from "bdsx/bds/blockpos";
+import { Spawner } from "bdsx/bds/level";
 import { ListTag, StringTag } from "bdsx/bds/nbt";
 import { procHacker } from "bdsx/bds/proc";
-import { AllocatedPointer, StaticPointer, VoidPointer } from "bdsx/core";
+import { serverInstance } from "bdsx/bds/server";
+import { AllocatedPointer, VoidPointer } from "bdsx/core";
+import { bool_t } from "bdsx/nativetype";
 
-export const spawnEntityAt = procHacker.js(
-    "CommandUtils::spawnEntityAt",
+const Spawner$spawnMob = procHacker.js(
+    "Spawner::spawnMob",
     Actor,
     null,
+    Spawner,
     BlockSource,
-    Vec3,
     ActorDefinitionIdentifier,
-    StaticPointer,
-    VoidPointer
+    VoidPointer,
+    Vec3,
+    bool_t,
+    bool_t,
+    bool_t
 );
-
 export namespace MCEntity {
     export function getTags<T extends Actor>(entity: T): string[] {
         const fullTag = entity.allocateAndSave();
@@ -31,30 +36,46 @@ export namespace MCEntity {
         region: BlockSource,
         pos: Vec3,
         entityIdentifier: EntityId | string,
-        summoner?: Actor
+        naturalSpawn = false,
+        surface = true,
+        fromSpawner = false
     ): Actor {
         if (!entityIdentifier.includes(":"))
             entityIdentifier = "minecraft:" + entityIdentifier;
-        const type = ActorDefinitionIdentifier.constructWith(ActorType.Mob);
+        const defId = ActorDefinitionIdentifier.constructWith(ActorType.Mob);
 
-        type.fullName = entityIdentifier;
+        defId.fullName = entityIdentifier;
 
         const splitted = entityIdentifier.split(":");
-        type.namespace = splitted[0];
-        type.identifier = splitted[1];
+        defId.namespace = splitted[0];
+        defId.identifier = splitted[1];
 
-        type.canonicalName.str = entityIdentifier;
-        type.canonicalName.recentCompared = null;
+        defId.canonicalName.str = entityIdentifier;
+        defId.canonicalName.recentCompared = null;
 
         const id = Math.floor(Math.random() * 0xffffffff) + 1;
         const ptr = new AllocatedPointer(8);
         ptr.setUint64WithFloat(id);
-        return spawnEntityAt(
+        return spawnMob(region, defId, pos, naturalSpawn, surface, fromSpawner);
+    }
+
+    export function spawnMob(
+        region: BlockSource,
+        id: ActorDefinitionIdentifier,
+        pos: Vec3,
+        naturalSpawn = false,
+        surface = true,
+        fromSpawner = false
+    ): Actor {
+        return Spawner$spawnMob(
+            serverInstance.minecraft.getLevel().getSpawner(),
             region,
+            id,
+            new VoidPointer(),
             pos,
-            type,
-            ptr,
-            summoner ?? new VoidPointer()
+            naturalSpawn,
+            surface,
+            fromSpawner
         );
     }
 }
