@@ -42,21 +42,22 @@ export namespace MCEntity {
     ): Actor {
         if (!entityIdentifier.includes(":"))
             entityIdentifier = "minecraft:" + entityIdentifier;
-        const defId = ActorDefinitionIdentifier.constructWith(ActorType.Mob);
+        const defId = ActorDefinitionIdentifier.constructWith(entityIdentifier);
 
-        defId.fullName = entityIdentifier;
+        const uniqueId = Math.floor(Math.random() * 0xffffffff) + 1;
 
-        const splitted = entityIdentifier.split(":");
-        defId.namespace = splitted[0];
-        defId.identifier = splitted[1];
-
-        defId.canonicalName.str = entityIdentifier;
-        defId.canonicalName.recentCompared = null;
-
-        const id = Math.floor(Math.random() * 0xffffffff) + 1;
         const ptr = new AllocatedPointer(8);
-        ptr.setUint64WithFloat(id);
-        return spawnMob(region, defId, pos, naturalSpawn, surface, fromSpawner);
+        ptr.setUint64WithFloat(uniqueId);
+        const entity = spawnMob(
+            region,
+            defId,
+            pos,
+            naturalSpawn,
+            surface,
+            fromSpawner
+        );
+        defId.destruct();
+        return entity;
     }
 
     export function spawnMob(
