@@ -1,4 +1,4 @@
-import { Actor, ActorDefinitionIdentifier, ActorType } from "bdsx/bds/actor";
+import { Actor, ActorDefinitionIdentifier } from "bdsx/bds/actor";
 import { BlockSource } from "bdsx/bds/block";
 import { Vec3 } from "bdsx/bds/blockpos";
 import { Spawner } from "bdsx/bds/level";
@@ -39,7 +39,7 @@ export namespace MCEntity {
         naturalSpawn = false,
         surface = true,
         fromSpawner = false
-    ): Actor {
+    ): Actor | null {
         if (!entityIdentifier.includes(":"))
             entityIdentifier = "minecraft:" + entityIdentifier;
         const defId = ActorDefinitionIdentifier.constructWith(entityIdentifier);
@@ -67,7 +67,7 @@ export namespace MCEntity {
         naturalSpawn = false,
         surface = true,
         fromSpawner = false
-    ): Actor {
+    ): Actor | null {
         return Spawner$spawnMob(
             serverInstance.minecraft.getLevel().getSpawner(),
             region,
