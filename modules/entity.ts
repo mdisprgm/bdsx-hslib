@@ -22,12 +22,11 @@ const Spawner$spawnMob = procHacker.js(
     bool_t
 );
 export namespace MCEntity {
+    /**
+     * @deprecated Use {@link Actor.getTags} directly
+     */
     export function getTags<T extends Actor>(entity: T): string[] {
-        const fullTag = entity.allocateAndSave();
-        const listTag = fullTag.get<ListTag<StringTag>>("Tags");
-        const list = listTag?.data.toArray().map((v) => v.data);
-        fullTag.dispose();
-        return list ?? [];
+        return entity.getTags();
     }
     export function getUniqueIdTag<T extends Actor>(entity: T): string {
         return `uniqueId${entity.getUniqueIdHigh()}-${entity.getUniqueIdLow()}`;
