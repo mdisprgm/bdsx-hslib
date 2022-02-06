@@ -8,7 +8,7 @@ const logFormat = format.printf(
         `[${info.level}](${info.label}) ${info.timestamp} > ${info.message}`
 );
 
-function CreateLogger(label: string, console: boolean): Logger {
+function CreateLogger(label: string, console: boolean = true): Logger {
     const logDir = path.join(logDirBase, label);
     const logger = createLogger({
         format: format.combine(
