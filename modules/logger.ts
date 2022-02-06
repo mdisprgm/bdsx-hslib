@@ -43,6 +43,7 @@ function CreateLogger(label: string, console: boolean): Logger {
     if (console) {
         logger.add(
             new transports.Console({
+                level: "debug",
                 format: format.combine(
                     format.label({
                         label: label,
@@ -51,7 +52,10 @@ function CreateLogger(label: string, console: boolean): Logger {
                     format.timestamp({
                         format: "YYYY-MM-DD HH:mm:ss",
                     }),
-                    logFormat
+                    format.printf(
+                        (info) =>
+                            `[${info.level}] ${info.label} > ${info.message}`
+                    )
                 ),
             })
         );
