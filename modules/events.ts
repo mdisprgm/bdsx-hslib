@@ -1,17 +1,18 @@
-import { UNDNAME_NAME_ONLY } from "bdsx/dbghelp";
-import { procHacker } from "bdsx/bds/proc";
-import { ProcHacker } from "bdsx/prochacker";
-import { bool_t, void_t, int32_t } from "bdsx/nativetype";
 import { Actor } from "bdsx/bds/actor";
 import { NetworkIdentifier } from "bdsx/bds/networkidentifier";
+import { procHacker } from "bdsx/bds/proc";
+import { pdb } from "bdsx/core";
+import { UNDNAME_NAME_ONLY } from "bdsx/dbghelp";
 import { Event } from "bdsx/eventtarget";
-import { Player } from "bdsx/bds/player";
+import { bool_t, int32_t, void_t } from "bdsx/nativetype";
+import { ProcHacker } from "bdsx/prochacker";
 
 const hacker = ProcHacker.load(
     "hacker.ini",
     ["Actor::calculateAttackDamage", "Mob::swing"],
     UNDNAME_NAME_ONLY
 );
+pdb.close();
 
 const onSneakingSwitched = new Event<
     (actor: Actor, sneaking: boolean) => void
@@ -58,5 +59,4 @@ class EntityAttackWithDamageEvent {
 }
 export const entityAttackWithDamage = new Event<
     (event: EntityAttackWithDamageEvent) => void
-    >();
-
+>();
