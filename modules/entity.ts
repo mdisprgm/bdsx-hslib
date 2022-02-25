@@ -32,19 +32,19 @@ export namespace MCEntity {
         return `uniqueId${entity.getUniqueIdHigh()}-${entity.getUniqueIdLow()}`;
     }
 
-    export function spawnMob(region: BlockSource, pos: Vec3, entityIdentifier: EntityId, naturalSpawn?: boolean, surface?: boolean, fromSpawner?: boolean): Actor | null;
-    export function spawnMob(region: BlockSource, pos: Vec3, entityIdentifier: string, naturalSpawn?: boolean, surface?: boolean, fromSpawner?: boolean): Actor | null;
-    export function spawnMob(region: BlockSource, pos: Vec3, entityIdentifier: ActorDefinitionIdentifier, naturalSpawn?: boolean, surface?: boolean, fromSpawner?: boolean): Actor | null;
-    export function spawnMob(region: BlockSource, pos: Vec3, entityIdentifier: string | ActorDefinitionIdentifier, naturalSpawn = false, surface = true, fromSpawner = false): Actor | null {
+    export function spawnMob(region: BlockSource, entityIdentifier: EntityId, summoner:Actor|null, pos: Vec3, naturalSpawn?: boolean, surface?: boolean, fromSpawner?: boolean): Actor | null;
+    export function spawnMob(region: BlockSource, entityIdentifier: string, summoner:Actor|null, pos: Vec3, naturalSpawn?: boolean, surface?: boolean, fromSpawner?: boolean): Actor | null;
+    export function spawnMob(region: BlockSource, entityIdentifier: ActorDefinitionIdentifier, summoner:Actor|null, pos: Vec3, naturalSpawn?: boolean, surface?: boolean, fromSpawner?: boolean): Actor | null;
+    export function spawnMob(region: BlockSource, entityIdentifier: string | ActorDefinitionIdentifier, summoner:Actor|null, pos: Vec3, naturalSpawn = false, surface = true, fromSpawner = false): Actor | null {
         const isDefinitionId = entityIdentifier instanceof ActorDefinitionIdentifier;
         const defId = isDefinitionId ? entityIdentifier : ActorDefinitionIdentifier.constructWith(entityIdentifier);
 
-        const entity = _spawnMob(region, defId, pos, naturalSpawn, surface, fromSpawner);
+        const entity = _spawnMob(region, defId, summoner, pos, naturalSpawn, surface, fromSpawner);
         if (!isDefinitionId) defId.destruct();
         return entity;
     }
 
-    function _spawnMob(region: BlockSource, id: ActorDefinitionIdentifier, pos: Vec3, naturalSpawn = false, surface = true, fromSpawner = false): Actor | null {
-        return Spawner$spawnMob(serverInstance.minecraft.getLevel().getSpawner(), region, id, null, pos, naturalSpawn, surface, fromSpawner);
+    function _spawnMob(region: BlockSource, id: ActorDefinitionIdentifier, summoner: Actor|null, pos: Vec3, naturalSpawn = false, surface = true, fromSpawner = false): Actor | null {
+        return Spawner$spawnMob(serverInstance.minecraft.getLevel().getSpawner(), region, id, summoner, pos, naturalSpawn, surface, fromSpawner);
     }
 }
