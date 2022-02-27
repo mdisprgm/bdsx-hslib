@@ -1,9 +1,11 @@
-import { Actor } from "bdsx/bds/actor";
+import { Actor, ActorDamageCause } from "bdsx/bds/actor";
 import { CommandPermissionLevel } from "bdsx/bds/command";
 import { CommandOrigin } from "bdsx/bds/commandorigin";
 import { Player, PlayerPermission } from "bdsx/bds/player";
+import { command } from "bdsx/command";
 import { bedrockServer } from "bdsx/launcher";
 import { red } from "colors";
+
 export namespace MCCmd {
     export const run = bedrockServer.executeCommand;
     export const runOnConsole = bedrockServer.executeCommandOnConsole;
@@ -13,18 +15,14 @@ export namespace MCCmd {
     }
 
     export function Feedback(str: string, target: Player | undefined) {
-        if (target)
-            run(`tellraw ${target!.getName()} {"rawtext":[{"text":"${str}"}]}`);
+        if (target) run(`tellraw ${target!.getName()} {"rawtext":[{"text":"${str}"}]}`);
     }
 
     /**
      * @param origin CommandOrigin
      * @param message string to outputs
      */
-    export function dynamicOutputSuccess(
-        origin: CommandOrigin,
-        message: string
-    ): void {
+    export function dynamicOutputSuccess(origin: CommandOrigin, message: string): void {
         const actor = origin.getEntity();
 
         if (actor?.isPlayer()) {
@@ -38,10 +36,7 @@ export namespace MCCmd {
      * @param origin CommandOrigin
      * @param message string to outputs
      */
-    export function dynamicOutputError(
-        origin: CommandOrigin,
-        message: string
-    ): void {
+    export function dynamicOutputError(origin: CommandOrigin, message: string): void {
         const actor = origin.getEntity();
 
         if (actor?.isPlayer()) {
@@ -60,7 +55,7 @@ export namespace MCCmd {
      * @param player 대상
      * @returns 연산자인지 반환
      */
-     export function isOperator(player: Player) {
+    export function isOperator(player: Player) {
         return player.getPermissionLevel() === PlayerPermission.OPERATOR;
     }
 
@@ -72,5 +67,9 @@ export namespace MCCmd {
      */
     export function hasOperatorPermission(actor: Actor) {
         return HighCmdPermissions.includes(actor.getCommandPermissionLevel());
+    }
+
+    export namespace enums {
+        export const damageCause = command.enum("EntityDamageCause", ActorDamageCause);
     }
 }
