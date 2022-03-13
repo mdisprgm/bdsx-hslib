@@ -1,7 +1,8 @@
 import * as path from "path";
 import { createLogger, format, Logger, transports } from "winston";
 import * as winstonDaily from "winston-daily-rotate-file";
-const logDirBase = "../scriptData/logs";
+
+const logDirBase = "./server_logs";
 const logFormat = format.printf(
     (info) =>
         `[${info.level}](${info.label}) ${info.timestamp} > ${info.message}`
