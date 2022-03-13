@@ -1,6 +1,6 @@
 {
     "name": "@mclibs/hslib",
-    "version": "1.0.3",
+    "version": "1.0.0",
     "description": "personal library for bdsx",
     "main": "index.js",
     "scripts": {
