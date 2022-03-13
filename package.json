@@ -1,6 +1,6 @@
 {
     "name": "@mcbelibs/hslib",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "personal library for bdsx",
     "main": "index.js",
     "scripts": {
@@ -20,5 +20,8 @@
     "bugs": {
         "url": "https://github.com/mdisprgm/bdsx-hslib/issues"
     },
-    "homepage": "https://github.com/mdisprgm/bdsx-hslib#readme"
+    "homepage": "https://github.com/mdisprgm/bdsx-hslib#readme",
+    "dependencies": {
+        "winston-daily-rotate-file": "^4.6.1"
+    }
 }
