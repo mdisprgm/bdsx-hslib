@@ -1,5 +1,5 @@
 {
-  "name": "hslib",
+  "name": "@mclibs/hslib",
   "version": "1.0.0",
   "description": "personal library for bdsx",
   "main": "main.js",
