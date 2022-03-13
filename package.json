@@ -1,24 +1,24 @@
 {
-  "name": "@mclibs/hslib",
-  "version": "1.0.2",
-  "description": "personal library for bdsx",
-  "main": "main.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/mdisprgm/bdsx-hslib.git"
-  },
-  "keywords": [
-    "mdisprgm",
-    "hslib",
-    "bdsx"
-  ],
-  "author": "mdisprgm",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/mdisprgm/bdsx-hslib/issues"
-  },
-  "homepage": "https://github.com/mdisprgm/bdsx-hslib#readme"
+    "name": "@mclibs/hslib",
+    "version": "1.0.3",
+    "description": "personal library for bdsx",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/mdisprgm/bdsx-hslib.git"
+    },
+    "keywords": [
+        "mdisprgm",
+        "hslib",
+        "bdsx"
+    ],
+    "author": "mdisprgm",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/mdisprgm/bdsx-hslib/issues"
+    },
+    "homepage": "https://github.com/mdisprgm/bdsx-hslib#readme"
 }
