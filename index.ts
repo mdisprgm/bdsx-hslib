@@ -1,3 +1,4 @@
+import "./careful";
 import { MCCmd } from "./modules/command";
 import { MCEntity } from "./modules/entity";
 import { fsmgmt } from "./modules/fsmgmt";

@@ -1,10 +1,11 @@
 import { Actor, ActorDamageCause } from "bdsx/bds/actor";
-import { CommandPermissionLevel } from "bdsx/bds/command";
+import { CommandEnum, CommandPermissionLevel } from "bdsx/bds/command";
 import { CommandOrigin } from "bdsx/bds/commandorigin";
 import { Player, PlayerPermission } from "bdsx/bds/player";
 import { command } from "bdsx/command";
 import { bedrockServer } from "bdsx/launcher";
 import { red } from "colors";
+import { careful } from "../careful";
 
 export namespace MCCmd {
     export const run = bedrockServer.executeCommand;
@@ -70,6 +71,9 @@ export namespace MCCmd {
     }
 
     export namespace enums {
-        export const damageCause = command.enum("EntityDamageCause", ActorDamageCause);
+        export let damageCause: CommandEnum<ActorDamageCause>;
     }
 }
+careful.on(() => {
+    MCCmd.enums.damageCause = command.enum("hslib.actor.damage_cause", ActorDamageCause);
+});
