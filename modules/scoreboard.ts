@@ -1,15 +1,25 @@
 import { Actor } from "bdsx/bds/actor";
+import { Level } from "bdsx/bds/level";
 import { NetworkIdentifier } from "bdsx/bds/networkidentifier";
 import { Player } from "bdsx/bds/player";
+import { Scoreboard } from "bdsx/bds/scoreboard";
 import { serverInstance } from "bdsx/bds/server";
+import { careful } from "../careful";
 import { MCCmd } from "./command";
 
-const level = serverInstance.minecraft.getLevel();
-const scoreboard = level.getScoreboard();
+let mc_level: Level;
+let mc_scoreboard: Scoreboard;
+careful.on(() => {
+    mc_level = serverInstance.minecraft.getLevel();
+    Object.freeze(mc_level);
+
+    mc_scoreboard = mc_level.getScoreboard();
+    Object.freeze(mc_scoreboard);
+});
 
 export namespace MCScore {
     export function addObjective(objective: string, trigger: "dummy", displayName?: string) {
-        MCCmd.run(`scoreboard objectives add "${objective}" "${trigger}" "${displayName ?? objective}"`)
+        MCCmd.run(`scoreboard objectives add "${objective}" "${trigger}" "${displayName ?? objective}"`);
     }
     export function removeObjective(objective: string) {
         MCCmd.run(`scoreboard objectives remove "${objective}"`);
@@ -19,7 +29,7 @@ export namespace MCScore {
         //점수 추가
         entity.runCommand(`scoreboard players @s add "${objective}" ${amount | 0}`);
     }
-    export function removeScore(entity: Actor, objective: string, amount: number ) {
+    export function removeScore(entity: Actor, objective: string, amount: number) {
         //점수 제거
         entity.runCommand(`scoreboard players @s remove "${objective}" ${amount | 0}`);
     }
@@ -32,17 +42,14 @@ export namespace MCScore {
         entity.runCommand(`scoreboard players @s reset "${objective}"`);
     }
 
-    export function getScoreByNetworkIdSync(
-        targetNetId: NetworkIdentifier,
-        objective: string
-    ): number | null {
+    export function getScoreByNetworkIdSync(targetNetId: NetworkIdentifier, objective: string): number | null {
         const target = targetNetId.getActor();
         if (!target) return null;
 
-        const obj = scoreboard.getObjective(objective);
+        const obj = mc_scoreboard.getObjective(objective);
         if (!obj) return null; //
 
-        const scoreId = scoreboard.getPlayerScoreboardId(target);
+        const scoreId = mc_scoreboard.getPlayerScoreboardId(target);
         return obj.getPlayerScore(scoreId).value;
     }
 
@@ -51,14 +58,11 @@ export namespace MCScore {
      * @param objective name of the objective
      * @returns score value of the target
      */
-    export function getPlayerScoreSync(
-        target: Player,
-        objective: string
-    ): null | number {
-        const obj = scoreboard.getObjective(objective);
+    export function getPlayerScoreSync(target: Player, objective: string): null | number {
+        const obj = mc_scoreboard.getObjective(objective);
         if (obj === null) return null;
 
-        const id = scoreboard.getPlayerScoreboardId(target);
+        const id = mc_scoreboard.getPlayerScoreboardId(target);
         return obj.getPlayerScore(id).value;
     }
 
@@ -67,14 +71,11 @@ export namespace MCScore {
      * @param objective name of the objective
      * @returns score value of the target
      */
-    export function getEntityScoreSync(
-        target: Actor,
-        objective: string
-    ): null | number {
-        const obj = scoreboard.getObjective(objective);
+    export function getEntityScoreSync(target: Actor, objective: string): null | number {
+        const obj = mc_scoreboard.getObjective(objective);
         if (obj === null) return null;
 
-        const id = scoreboard.getActorScoreboardId(target);
+        const id = mc_scoreboard.getActorScoreboardId(target);
         return obj.getPlayerScore(id).value;
     }
 
@@ -83,14 +84,11 @@ export namespace MCScore {
      * @param objective name of the objective
      * @returns score value of the target
      */
-    export function getFakePlayerScoreSync(
-        target: string,
-        objective: string
-    ): null | number {
-        const obj = scoreboard.getObjective(objective);
+    export function getFakePlayerScoreSync(target: string, objective: string): null | number {
+        const obj = mc_scoreboard.getObjective(objective);
         if (obj === null) return null;
 
-        const id = scoreboard.getFakePlayerScoreboardId(target);
+        const id = mc_scoreboard.getFakePlayerScoreboardId(target);
         return obj.getPlayerScore(id).value;
     }
 }
