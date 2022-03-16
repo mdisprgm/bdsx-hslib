@@ -1,7 +1,7 @@
 import { Actor, ActorDamageCause } from "bdsx/bds/actor";
 import { CommandEnum, CommandPermissionLevel } from "bdsx/bds/command";
 import { CommandOrigin } from "bdsx/bds/commandorigin";
-import { Player, PlayerPermission } from "bdsx/bds/player";
+import { Player, PlayerPermission, ServerPlayer } from "bdsx/bds/player";
 import { command } from "bdsx/command";
 import { bedrockServer } from "bdsx/launcher";
 import { red } from "colors";
@@ -11,12 +11,8 @@ export namespace MCCmd {
     export const run = bedrockServer.executeCommand;
     export const runOnConsole = bedrockServer.executeCommandOnConsole;
 
-    export function getPlayerByEntity(actor: Actor): Player | undefined {
-        return actor.isPlayer() ? actor : undefined;
-    }
-
-    export function Feedback(str: string, target: Player | undefined) {
-        if (target) run(`tellraw ${target!.getName()} {"rawtext":[{"text":"${str}"}]}`);
+    export function Feedback(target: Player, message: string) {
+        if (target && target instanceof ServerPlayer) target.sendMessage(message);
     }
 
     /**
@@ -63,11 +59,11 @@ export namespace MCCmd {
     const HighCmdPermissions = [CommandPermissionLevel.Operator, CommandPermissionLevel.Admin, CommandPermissionLevel.Host];
     /**
      * 연산자 명령어 권한을 가진 `사용자 지정`일 때도 포함인듯?
-     * @param player 대상
+     * @param entity 대상
      * @returns 연산자 명령어 사용 권한이 있는지 반환
      */
-    export function hasOperatorPermission(actor: Actor) {
-        return HighCmdPermissions.includes(actor.getCommandPermissionLevel());
+    export function hasOperatorPermission(entity: Actor) {
+        return HighCmdPermissions.includes(entity.getCommandPermissionLevel());
     }
 
     export namespace enums {
