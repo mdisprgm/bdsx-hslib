@@ -5,8 +5,8 @@
     "main": "index.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
-        "build": "tsc -d",
-        "watch": "tsc -w -d",
+        "build": "tsc -d --removeComments",
+        "watch": "tsc -w -d --removeComments",
         "publish": "npm run build && npm publish"
     },
     "repository": {
