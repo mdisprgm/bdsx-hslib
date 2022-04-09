@@ -3,14 +3,14 @@ import { Level } from "bdsx/bds/level";
 import { NetworkIdentifier } from "bdsx/bds/networkidentifier";
 import { Player } from "bdsx/bds/player";
 import { Scoreboard } from "bdsx/bds/scoreboard";
-import { serverInstance } from "bdsx/bds/server";
+import { bedrockServer } from "bdsx/launcher";
 import { careful } from "../careful";
 import { MCCmd } from "./command";
 
 let mc_level: Level;
 let mc_scoreboard: Scoreboard;
 careful.on(() => {
-    mc_level = serverInstance.minecraft.getLevel();
+    mc_level = bedrockServer.level;
     Object.freeze(mc_level);
 
     mc_scoreboard = mc_level.getScoreboard();
