@@ -1,8 +1,10 @@
 //if player's nametag is changed, command requires changed nametag (not xbox gamertag)
 //but this matches player's nametag to real gamertag
-import { serverInstance } from "bdsx/bds/server";
-import { events } from "bdsx/event";
 import { MinecraftPacketIds } from "bdsx/bds/packetids";
+import { events } from "bdsx/event";
+import { bedrockServer } from "bdsx/launcher";
+
+const serverInstance = bedrockServer.serverInstance;
 
 events.packetBefore(MinecraftPacketIds.CommandRequest).on((pkt) => {
     const players = serverInstance.getPlayers();

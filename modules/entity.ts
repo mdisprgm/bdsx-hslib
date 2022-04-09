@@ -3,23 +3,11 @@ import { BlockSource } from "bdsx/bds/block";
 import { Vec3 } from "bdsx/bds/blockpos";
 import { Spawner } from "bdsx/bds/level";
 import { procHacker } from "bdsx/bds/proc";
-import { serverInstance } from "bdsx/bds/server";
 import { VoidPointer } from "bdsx/core";
+import { bedrockServer } from "bdsx/launcher";
 import { bool_t } from "bdsx/nativetype";
 
-const Spawner$spawnMob = procHacker.js(
-    "Spawner::spawnMob",
-    Actor,
-    null,
-    Spawner,
-    BlockSource,
-    ActorDefinitionIdentifier,
-    VoidPointer,
-    Vec3,
-    bool_t,
-    bool_t,
-    bool_t
-);
+const Spawner$spawnMob = procHacker.js("Spawner::spawnMob", Actor, null, Spawner, BlockSource, ActorDefinitionIdentifier, VoidPointer, Vec3, bool_t, bool_t, bool_t);
 
 export namespace MCEntity {
     /**
@@ -45,6 +33,6 @@ export namespace MCEntity {
     }
 
     function _spawnMob(region: BlockSource, id: ActorDefinitionIdentifier, summoner: Actor|null, pos: Vec3, naturalSpawn = false, surface = true, fromSpawner = false): Actor | null {
-        return Spawner$spawnMob(serverInstance.minecraft.getLevel().getSpawner(), region, id, summoner, pos, naturalSpawn, surface, fromSpawner);
+        return Spawner$spawnMob(bedrockServer.level.getSpawner(), region, id, summoner, pos, naturalSpawn, surface, fromSpawner);
     }
 }
