@@ -2,12 +2,12 @@ import { Actor, ActorDefinitionIdentifier } from "bdsx/bds/actor";
 import { BlockSource } from "bdsx/bds/block";
 import { Vec3 } from "bdsx/bds/blockpos";
 import { Spawner } from "bdsx/bds/level";
-import { procHacker } from "bdsx/bds/proc";
 import { VoidPointer } from "bdsx/core";
 import { bedrockServer } from "bdsx/launcher";
 import { bool_t } from "bdsx/nativetype";
+import { procHacker } from "bdsx/prochacker";
 
-const Spawner$spawnMob = procHacker.js("Spawner::spawnMob", Actor, null, Spawner, BlockSource, ActorDefinitionIdentifier, VoidPointer, Vec3, bool_t, bool_t, bool_t);
+const Spawner$spawnMob = procHacker.js("?spawnMob@Spawner@@QEAAPEAVMob@@AEAVBlockSource@@AEBUActorDefinitionIdentifier@@PEAVActor@@AEBVVec3@@_N44@Z", Actor, null, Spawner, BlockSource, ActorDefinitionIdentifier, VoidPointer, Vec3, bool_t, bool_t, bool_t);
 
 export namespace MCEntity {
     /**
