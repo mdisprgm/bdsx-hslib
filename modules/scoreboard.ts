@@ -1,21 +1,11 @@
 import { Actor } from "bdsx/bds/actor";
-import { Level } from "bdsx/bds/level";
 import { NetworkIdentifier } from "bdsx/bds/networkidentifier";
 import { Player } from "bdsx/bds/player";
-import { Scoreboard } from "bdsx/bds/scoreboard";
 import { bedrockServer } from "bdsx/launcher";
-import { careful } from "../careful";
 import { MCCmd } from "./command";
 
-let mc_level: Level;
-let mc_scoreboard: Scoreboard;
-careful.on(() => {
-    mc_level = bedrockServer.level;
-    Object.freeze(mc_level);
-
-    mc_scoreboard = mc_level.getScoreboard();
-    Object.freeze(mc_scoreboard);
-});
+const mc_level = bedrockServer.level;
+const mc_scoreboard = mc_level.getScoreboard();
 
 export namespace MCScore {
     export function addObjective(objective: string, trigger: "dummy", displayName?: string) {
