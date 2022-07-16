@@ -17,7 +17,7 @@ export namespace MCEntity {
         return entity.getTags();
     }
     export function getUniqueIdTag<T extends Actor>(entity: T): string {
-        return `uniqueId${entity.getUniqueIdHigh()}-${entity.getUniqueIdLow()}`;
+        return `entity:${entity.getUniqueIdHigh()}-${entity.getUniqueIdLow()}`;
     }
 
     export function spawnMob(region: BlockSource, entityIdentifier: EntityId, summoner:Actor|null, pos: Vec3, naturalSpawn?: boolean, surface?: boolean, fromSpawner?: boolean): Actor | null;
