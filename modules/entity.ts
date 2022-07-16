@@ -11,7 +11,7 @@ const Spawner$spawnMob = procHacker.js("?spawnMob@Spawner@@QEAAPEAVMob@@AEAVBloc
 
 export namespace MCEntity {
     /**
-     * @deprecated Use {@link Actor.getTags} directly
+     * @deprecated Use {@link Actor.prototype.getTags} directly
      */
     export function getTags<T extends Actor>(entity: T): string[] {
         return entity.getTags();
