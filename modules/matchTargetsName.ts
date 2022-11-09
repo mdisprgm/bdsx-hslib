@@ -10,7 +10,7 @@ events.packetBefore(MinecraftPacketIds.CommandRequest).on((pkt) => {
     const players = serverInstance.getPlayers();
     for (const t of players) {
         const identity = t.getCertificate().getId();
-        const name = t.getName();
+        const name = t.getNameTag();
         if (identity === name) return;
         while (pkt.command.includes(identity)) {
             pkt.command = pkt.command.replace(identity, name);
@@ -22,7 +22,7 @@ export function matchTargetsName(command: string): string {
     const players = serverInstance.getPlayers();
     for (const t of players) {
         const identity = t.getCertificate().getId();
-        const name = t.getName();
+        const name = t.getNameTag();
         if (identity !== name) {
             while (command.includes(identity)) {
                 command = command.replace(identity, name);
